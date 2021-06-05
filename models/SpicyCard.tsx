@@ -1,11 +1,11 @@
 class SpicyCard {
   constructor(
     public id: Required<number>,
-    public name: Required<string>,
+    public title: Required<string>,
     public description: Required<string>
   ) {
     this.id = id;
-    this.name = name;
+    this.title = title;
     this.description = description;
   }
 }

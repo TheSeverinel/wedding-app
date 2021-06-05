@@ -1,10 +1,20 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import AppLoading from "expo-app-loading";
-import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
 
 import AppNavigator from "./navigation/AppNavigator";
+import { DBInit, DBAddGeneralData } from "./database/db";
+
+DBInit()
+  .then(() => {
+    DBAddGeneralData();
+    console.log("Initialized database");
+  })
+  .catch((err) => {
+    console.log("Initializing db failed.");
+    console.log(err);
+  });
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -30,12 +40,3 @@ export default function App() {
 
   return <AppNavigator />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

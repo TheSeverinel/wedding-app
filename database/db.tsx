@@ -1,20 +1,22 @@
 import * as SQLite from "expo-sqlite";
 
+import tables from "../constants/tables";
+
+import dutiesJson from "../data/duties.json";
+import spicyJson from "../data/spicy.json";
+import surpriseJson from "../data/surprise.json";
+
 const db = SQLite.openDatabase("wedding.db");
 
-const TABLES = ['spicy', 'duties', 'surprise'];
-
 export const DBInit = () => {
-
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
-      TABLES.forEach(table => {
+      tables.forEach((table) => {
         tx.executeSql(
-          `CREATE TABLE IF NOT EXISTS ${table} (id INTEGER PRIMARY KEY NOT NULL, title TEXT NOT NULL, description TEXT NOT NULL);`,
+          `CREATE TABLE IF NOT EXISTS ${table} (id INTEGER PRIMARY KEY NOT NULL, title TEXT NOT NULL, description TEXT NOT NULL, UNIQUE(id, title));`,
           [],
           () => {
             resolve(null);
-            return true;
           },
           (_, err) => {
             reject(err);
@@ -22,8 +24,13 @@ export const DBInit = () => {
           }
         );
       });
-      })
-      
+    });
+  });
+};
+
+export const DBAddGeneralData = () => {
+  spicyJson.map((data) => {
+    DBInsert("spicy", data);
   });
 };
 
@@ -44,7 +51,6 @@ export const DBInsert = (table: string, data: any) => {
         [...values],
         (_, result) => {
           resolve(result);
-          return true;
         },
         (_, err) => {
           reject(err);
@@ -57,38 +63,36 @@ export const DBInsert = (table: string, data: any) => {
 
 export const DBDelete = (table: string, id: number) => {
   return new Promise((resolve, reject) => {
-		db.transaction((tx) => {
-			tx.executeSql(
-				`DELETE FROM ${table} WHERE id=?`,
-				[id],
+    db.transaction((tx) => {
+      tx.executeSql(
+        `DELETE FROM ${table} WHERE id=?`,
+        [id],
         (_, result) => {
           resolve(result);
-          return true;
         },
         (_, err) => {
           reject(err);
           return false;
         }
-			);
-		});
-	});
-}
+      );
+    });
+  });
+};
 
 export const DBFetch = (table: string) => {
-	return new Promise((resolve, reject) => {
-		db.transaction((tx) => {
-			tx.executeSql(
-				`SELECT * FROM ${table}`,
-				[],
+  return new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `SELECT * FROM ${table}`,
+        [],
         (_, result) => {
           resolve(result);
-          return true;
         },
         (_, err) => {
           reject(err);
           return false;
         }
-			);
-		});
-	});
+      );
+    });
+  });
 };
