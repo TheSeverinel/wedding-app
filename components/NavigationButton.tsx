@@ -1,13 +1,19 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
-const NavigationButton = (props) => {
-  const { title } = props; //image //destination
+import colors from '../constants/colors';
 
-  const onPress = () => {};
+interface Props {
+  title: string,
+  onPress: Function
+}
+
+const NavigationButton = (props: Props) => {
+  const { title, onPress } = props; //image //destination
+
 
   return (
-    <TouchableOpacity onPress={onPress} style={styles.background}>
+    <TouchableOpacity onPress={() => onPress(title)} style={styles.background}>
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
@@ -16,11 +22,17 @@ const NavigationButton = (props) => {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: 'blue'
+    backgroundColor: colors.accent,
+    borderWidth: 2,
+    borderColor: colors.primary
   },
   text: {
     fontFamily: 'open-sans',
-    fontSize: 16
+    fontSize: 30,
+    height: '100%',
+    width: '100%',
+    textAlign: 'center',
+    textAlignVertical: 'center'
   }
 })
 

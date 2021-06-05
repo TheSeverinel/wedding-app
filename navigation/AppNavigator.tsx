@@ -6,21 +6,23 @@ import Home from "../screens/Home";
 import Gallery from "../screens/Gallery";
 import Duties from "../screens/Duties";
 import Spicy from "../screens/Spicy";
+import Surprise from "../screens/Surprise";
 
 const Stack = createStackNavigator();
 
-const WeddingNavigator = (props) => {
+const WeddingNavigator = (props: any) => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Gallery" component={Gallery} />
       <Stack.Screen name="Duties" component={Duties} />
       <Stack.Screen name="Spicy" component={Spicy} />
+      <Stack.Screen name="Surprise" component={Surprise} />
     </Stack.Navigator>
   );
 };
 
-const AppNavigator = (props) => {
+const AppNavigator = (props: any) => {
   return (
     <NavigationContainer>
       <WeddingNavigator />

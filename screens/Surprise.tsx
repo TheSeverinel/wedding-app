@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-const Duties = (props: any) => {
+const Surprise = (props: any) => {
   return (
     <View>
-      <Text>Duties</Text>
+      <Text>Surprise</Text>
     </View>
   );
 };
 
-export default Duties;
+export default Surprise;
