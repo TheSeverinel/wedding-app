@@ -14,11 +14,11 @@ const Home = (props: any) => {
 
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1, flexDirection: "row" }}>
+      <View style={styles.row}>
         <NavigationButton title="Gallery" onPress={navigateTo} />
         <NavigationButton title="Duties" onPress={navigateTo} />
       </View>
-      <View style={{ flex: 1, flexDirection: "row" }}>
+      <View style={styles.row}>
         <NavigationButton title="Spicy" onPress={navigateTo} />
         <NavigationButton title="Surprise" onPress={navigateTo} />
       </View>
@@ -34,6 +34,10 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     backgroundColor: "beige",
   },
+  row: {
+    flex: 1,
+    flexDirection: "row"
+  }
 });
 
 export default Home;
