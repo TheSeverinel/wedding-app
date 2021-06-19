@@ -1,34 +1,61 @@
 import React, { useState, useEffect } from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet, ImageBackground } from "react-native";
 
-import { DBFetch } from "../database/db";
+import { DBGetOne, DBDelete } from "../database/db";
 
-const Spicy = (props: any) => {
+import colors from "../constants/colors";
+
+interface Props {}
+
+const Spicy = (props: Props) => {
   const [card, setCard] = useState([]);
 
   useEffect(() => {
     const fetchCards = async () => {
-      const result = await DBFetch("spicy");
-      const resultArray = result?.rows?._array;
-      setCard(resultArray);
+      const result: any = await DBGetOne("spicy");
+      const cardObject = result?.rows?._array?.[0];
+      if (cardObject) {
+        setCard(cardObject);
+      }
     };
     fetchCards();
   }, []);
 
   const showCard = () => {
-    return card.map((el) => (
-      <View>
-        <Text>{el?.title}</Text>
-        <Text>{el?.description}</Text>
-      </View>
-    ));
+    const { id, title, description }: any = card;
+    if (id) {
+      return (
+        <View key={id}>
+          <ImageBackground source={require('../assets/images/img-0.jpg')} style={styles.background}>
+            <Text>{title}</Text>
+            <Text>{description}</Text>
+          </ImageBackground>
+        </View>
+      );
+    }
+    return null;
   };
 
-  return (
-    <View>
-      <Text>{showCard()}</Text>
-    </View>
-  );
+  return <View style={styles.container}>{showCard()}</View>;
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    height: "100%",
+    flexDirection: "column",
+    flexWrap: "wrap",
+    // backgroundColor: colors.accent,
+  },
+  background: {
+    width: '100%',
+    height: '100%',
+    resizeMode: "cover",
+  },
+  row: {
+    flex: 1,
+    flexDirection: "row",
+  },
+});
 
 export default Spicy;

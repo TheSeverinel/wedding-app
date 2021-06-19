@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
+import colors from '../constants/colors';
 import NavigationButton from "../components/NavigationButton";
 
 const Home = (props: any) => {
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     height: "100%",
     flexDirection: "column",
     flexWrap: "wrap",
-    backgroundColor: "beige",
+    backgroundColor: colors.primary,
   },
   row: {
     flex: 1,

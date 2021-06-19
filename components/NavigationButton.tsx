@@ -1,16 +1,20 @@
 import React from "react";
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import {
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  GestureResponderEvent,
+} from "react-native";
 
-import colors from '../constants/colors';
+import colors from "../constants/colors";
 
 interface Props {
-  title: string,
-  onPress: Function
+  title: string;
+  onPress(arg0: string): (event: GestureResponderEvent) => void;
 }
 
 const NavigationButton = (props: Props) => {
   const { title, onPress } = props; //image //destination
-
 
   return (
     <TouchableOpacity onPress={() => onPress(title)} style={styles.background}>
@@ -24,16 +28,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.accent,
     borderWidth: 2,
-    borderColor: colors.primary
+    borderColor: colors.primary,
   },
   text: {
-    fontFamily: 'open-sans',
+    fontFamily: "open-sans",
     fontSize: 30,
-    height: '100%',
-    width: '100%',
-    textAlign: 'center',
-    textAlignVertical: 'center'
-  }
-})
+    height: "100%",
+    width: "100%",
+    textAlign: "center",
+    textAlignVertical: "center",
+  },
+});
 
 export default NavigationButton;
